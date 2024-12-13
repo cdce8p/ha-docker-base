@@ -1,17 +1,17 @@
-image: ghcr.io/home-assistant/{arch}-base-python
+image: ghcr.io/cdce8p/{arch}-base-python
 build_from:
-  aarch64: "ghcr.io/home-assistant/aarch64-base:"
-  armv7: "ghcr.io/home-assistant/armv7-base:"
-  armhf: "ghcr.io/home-assistant/armhf-base:"
-  amd64: "ghcr.io/home-assistant/amd64-base:"
-  i386: "ghcr.io/home-assistant/i386-base:"
+  aarch64: "ghcr.io/cdce8p/aarch64-base:"
+  armv7: "ghcr.io/cdce8p/armv7-base:"
+  armhf: "ghcr.io/cdce8p/armhf-base:"
+  amd64: "ghcr.io/cdce8p/amd64-base:"
+  i386: "ghcr.io/cdce8p/i386-base:"
 cosign:
-  base_identity: https://github.com/home-assistant/docker-base/.*
-  identity: https://github.com/home-assistant/docker-base/.*
+  base_identity: https://github.com/cdce8p/ha-docker-base/.*
+  identity: https://github.com/cdce8p/ha-docker-base/.*
 args:
   PYTHON_VERSION: 3.13.1
   PIP_VERSION: 24.3.1
   GPG_KEY: 7169605F62C751356D054A26A821E680E5FA6305
 labels:
   io.hass.base.name: python
-  org.opencontainers.image.source: https://github.com/home-assistant/docker-base
+  org.opencontainers.image.source: https://github.com/cdce8p/ha-docker-base
