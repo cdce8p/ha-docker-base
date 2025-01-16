@@ -117,7 +117,7 @@ jobs:
     name: Build ${{ matrix.arch }} debian ${{ matrix.version }} base image
     needs: init
     runs-on: ${{ matrix.os }}
-    if: false
+    # if: false
     permissions:
       contents: read
       id-token: write
@@ -171,7 +171,7 @@ jobs:
     name: Build ${{ matrix.arch }} ubuntu ${{ matrix.version }} base image
     needs: init
     runs-on: ${{ matrix.os }}
-    if: false
+    # if: false
     permissions:
       contents: read
       id-token: write
@@ -224,7 +224,7 @@ jobs:
     name: Build ${{ matrix.arch }} raspbian ${{ matrix.version }} base image
     needs: init
     runs-on: ${{ matrix.os }}
-    if: false
+    # if: false
     permissions:
       contents: read
       id-token: write
