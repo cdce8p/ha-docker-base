@@ -63,7 +63,7 @@ jobs:
   build_alpine:
     name: Build ${{ matrix.arch }} alpine ${{ matrix.version }} base image
     needs: init
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     permissions:
       contents: read
       id-token: write
@@ -73,6 +73,14 @@ jobs:
       matrix:
         arch: ${{ fromJson(needs.init.outputs.architectures_alpine) }}
         version: ["3.21"]
+        include:
+          - os: ubuntu-latest
+          - arch: aarch64
+            os: ubuntu-24.04-arm
+          - arch: armhf
+            os: ubuntu-24.04-arm
+          - arch: armv7
+            os: ubuntu-24.04-arm
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v4.2.2
@@ -108,7 +116,7 @@ jobs:
   build_debian:
     name: Build ${{ matrix.arch }} debian ${{ matrix.version }} base image
     needs: init
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     if: false
     permissions:
       contents: read
@@ -118,6 +126,14 @@ jobs:
       matrix:
         arch: ${{ fromJson(needs.init.outputs.architectures_debian) }}
         version: ["bullseye", "bookworm"]
+        include:
+          - os: ubuntu-latest
+          - arch: aarch64
+            os: ubuntu-24.04-arm
+          - arch: armhf
+            os: ubuntu-24.04-arm
+          - arch: armv7
+            os: ubuntu-24.04-arm
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v4.2.2
@@ -154,7 +170,7 @@ jobs:
   build_ubuntu:
     name: Build ${{ matrix.arch }} ubuntu ${{ matrix.version }} base image
     needs: init
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     if: false
     permissions:
       contents: read
@@ -164,6 +180,14 @@ jobs:
       matrix:
         arch: ${{ fromJson(needs.init.outputs.architectures_ubuntu) }}
         version: ["16.04", "18.04", "20.04"]
+        include:
+          - os: ubuntu-latest
+          - arch: aarch64
+            os: ubuntu-24.04-arm
+          - arch: armhf
+            os: ubuntu-24.04-arm
+          - arch: armv7
+            os: ubuntu-24.04-arm
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v4.2.2
@@ -199,7 +223,7 @@ jobs:
   build_raspbian:
     name: Build ${{ matrix.arch }} raspbian ${{ matrix.version }} base image
     needs: init
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     if: false
     permissions:
       contents: read
@@ -209,6 +233,14 @@ jobs:
       matrix:
         arch: ${{ fromJson(needs.init.outputs.architectures_raspbian) }}
         version: ["bullseye", "bookworm"]
+        include:
+          - os: ubuntu-latest
+          - arch: aarch64
+            os: ubuntu-24.04-arm
+          - arch: armhf
+            os: ubuntu-24.04-arm
+          - arch: armv7
+            os: ubuntu-24.04-arm
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v4.2.2
@@ -245,7 +277,7 @@ jobs:
   build_python:
     name: Build ${{ matrix.arch }} alpine ${{ matrix.version }} - python ${{ matrix.python }} base image
     needs: [init, build_alpine]
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     permissions:
       contents: read
       id-token: write
@@ -256,6 +288,14 @@ jobs:
         arch: ${{ fromJson(needs.init.outputs.architectures_alpine) }}
         version: ["3.21"]
         python: ["3.12", "3.13"]
+        include:
+          - os: ubuntu-latest
+          - arch: aarch64
+            os: ubuntu-24.04-arm
+          - arch: armhf
+            os: ubuntu-24.04-arm
+          - arch: armv7
+            os: ubuntu-24.04-arm
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v4.2.2
