@@ -5,6 +5,7 @@ on:
     branches: ["master"]
   release:
     types: ["published"]
+  workflow_dispatch:
 
 env:
   BUILD_TYPE: base
@@ -64,6 +65,7 @@ jobs:
     name: Build ${{ matrix.arch }} alpine ${{ matrix.version }} base image
     needs: init
     runs-on: ubuntu-22.04
+    if: false
     permissions:
       contents: read
       id-token: write
@@ -108,6 +110,7 @@ jobs:
     name: Build ${{ matrix.arch }} debian ${{ matrix.version }} base image
     needs: init
     runs-on: ubuntu-22.04
+    if: false
     permissions:
       contents: read
       id-token: write
@@ -153,6 +156,7 @@ jobs:
     name: Build ${{ matrix.arch }} ubuntu ${{ matrix.version }} base image
     needs: init
     runs-on: ubuntu-22.04
+    if: false
     permissions:
       contents: read
       id-token: write
@@ -197,6 +201,7 @@ jobs:
     name: Build ${{ matrix.arch }} raspbian ${{ matrix.version }} base image
     needs: init
     runs-on: ubuntu-22.04
+    if: false
     permissions:
       contents: read
       id-token: write
@@ -240,15 +245,17 @@ jobs:
 
   build_python:
     name: Build ${{ matrix.arch }} alpine ${{ matrix.version }} - python ${{ matrix.python }} base image
-    needs: [init, build_alpine]
+    needs: [init]
     runs-on: ubuntu-22.04
     permissions:
       contents: read
       id-token: write
       packages: write
     strategy:
+      fail-fast: false
       matrix:
-        arch: ${{ fromJson(needs.init.outputs.architectures_alpine) }}
+        # arch: ${{ fromJson(needs.init.outputs.architectures_alpine) }}
+        arch: ["amd64"]
         version: ["3.19", "3.20", "3.21"]
         python: ["3.11", "3.12", "3.13"]
     steps:
