@@ -18,14 +18,17 @@ COPY *.patch /usr/src/
 RUN set -ex \
     && export PYTHON_VERSION=${PYTHON_VERSION} \
     && apk add --no-cache --virtual .fetch-deps \
-        cosign \
         openssl \
         tar \
         xz \
+    && apk add --no-cache --virtual .fetch-deps \
+        --repository=https://dl-cdn.alpinelinux.org/alpine/v3.22/community \
+        cosign \
     \
     && curl -L -o python.tar.xz "https://www.python.org/ftp/python/${PYTHON_VERSION%%[a-z]*}/Python-$PYTHON_VERSION.tar.xz" \
     && curl -L -o python.tar.xz.sigstore "https://www.python.org/ftp/python/${PYTHON_VERSION%%[a-z]*}/Python-$PYTHON_VERSION.tar.xz.sigstore" \
     && cosign verify-blob \
+        --new-bundle-format \
         --certificate-identity "${CERT_IDENTITY}" \
         --certificate-oidc-issuer "${CERT_OIDC_ISSUER}" \
         --bundle python.tar.xz.sigstore \
