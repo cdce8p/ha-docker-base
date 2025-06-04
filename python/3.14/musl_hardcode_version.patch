@@ -1,0 +1,23 @@
+From 53c39346bd74ee76881e5823f6cb09d8650b041f Mon Sep 17 00:00:00 2001
+From: Marc Mueller <30130371+cdce8p@users.noreply.github.com>
+Date: Wed, 4 Jun 2025 14:04:41 +0200
+Subject: [PATCH] Hardcode musl version in linked_to_musl
+
+---
+ Lib/test/support/__init__.py | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/Lib/test/support/__init__.py b/Lib/test/support/__init__.py
+index b7cd7940eb1..51898c5707b 100644
+--- a/Lib/test/support/__init__.py
++++ b/Lib/test/support/__init__.py
+@@ -3110,6 +3110,8 @@ def linked_to_musl():
+         _linked_to_musl = False
+         return _linked_to_musl
+ 
++    return (1, 2, 5)  # check with 'apk info musl'
++
+     # On linux, we'll depend on the platform module to do the check, so new
+     # musl platforms should add support in that module if possible.
+     import platform
+
