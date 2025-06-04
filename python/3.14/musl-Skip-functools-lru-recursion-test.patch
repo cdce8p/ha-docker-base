@@ -1,0 +1,21 @@
+From b58c9a31e60c7eab614a920867655a664e012744 Mon Sep 17 00:00:00 2001
+From: Marc Mueller <30130371+cdce8p@users.noreply.github.com>
+Date: Wed, 4 Jun 2025 14:26:16 +0200
+Subject: [PATCH] Skip functools lru recursion test
+
+---
+ Lib/test/test_functools.py | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Lib/test/test_functools.py b/Lib/test/test_functools.py
+index f7e09fd771e..94ba1938f10 100644
+--- a/Lib/test/test_functools.py
++++ b/Lib/test/test_functools.py
+@@ -2135,6 +2135,7 @@ def orig(a: int) -> nonexistent: ...
+ 
+     @support.skip_on_s390x
+     @unittest.skipIf(support.is_wasi, "WASI has limited C stack")
++    @unittest.skipIf(support.linked_to_musl(), "skip on musl")
+     @support.skip_if_sanitizer("requires deep stack", ub=True, thread=True)
+     @support.skip_emscripten_stack_overflow()
+     def test_lru_recursion(self):
