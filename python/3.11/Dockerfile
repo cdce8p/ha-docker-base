@@ -21,9 +21,8 @@ RUN set -ex \
         openssl \
         tar \
         xz \
-    && apk add --no-cache --virtual .fetch-deps \
-        --repository=https://dl-cdn.alpinelinux.org/alpine/v3.22/community \
-        cosign \
+    && apk add --no-cache --virtual .cosign cosign \
+        --repository="https://dl-cdn.alpinelinux.org/alpine/v3.22/community" \
     \
     && curl -L -o python.tar.xz "https://www.python.org/ftp/python/${PYTHON_VERSION%%[a-z]*}/Python-$PYTHON_VERSION.tar.xz" \
     && curl -L -o python.tar.xz.sigstore "https://www.python.org/ftp/python/${PYTHON_VERSION%%[a-z]*}/Python-$PYTHON_VERSION.tar.xz.sigstore" \
@@ -66,7 +65,7 @@ RUN set -ex \
         zlib-dev \
         bluez-dev \
     # add build deps before removing fetch deps in case there's overlap
-    && apk del .fetch-deps \
+    && apk del .fetch-deps .cosign \
     \
     && for i in /usr/src/*.patch; do \
         patch -d /usr/src/python -p 1 < "${i}"; done \
