@@ -21,7 +21,9 @@ RUN set -ex \
         openssl \
         tar \
         xz \
-    && echo "${BUILD_FROM}" \
+    && cat /etc/alpine-release \
+    && echo "$(cat alpine-release | tr -d "." | cut -c1-3 -)" \
+    &6 echo [[ $(cat /etc/alpine-release | tr -d "." | cut -c1-3 -) > 321 ]] && echo "good" || echo "bad" \
     && apk add --no-cache --virtual .cosign cosign \
         --repository="https://dl-cdn.alpinelinux.org/alpine/v3.21/community" \
     \
