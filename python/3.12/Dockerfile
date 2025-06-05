@@ -14,8 +14,6 @@ ENV PATH=/usr/local/bin:$PATH
 # Set shell
 SHELL ["/bin/ash", "-o", "pipefail", "-c"]
 
-ENV ALPINE=$(cat /etc/alpine-release)
-
 COPY *.patch /usr/src/
 RUN set -ex \
     && export PYTHON_VERSION=${PYTHON_VERSION} \
@@ -23,12 +21,9 @@ RUN set -ex \
         openssl \
         tar \
         xz \
-    && echo "${ALPINE}" \
-    && cat /etc/alpine-release \
-    && echo "$(cat alpine-release | tr -d "." | cut -c1-3 -)" \
-    &6 echo [[ $(cat /etc/alpine-release | tr -d "." | cut -c1-3 -) > 321 ]] && echo "good" || echo "bad" \
-    && apk add --no-cache --virtual .cosign cosign \
+    && apk add --no-cache --virtual .cosign \
         --repository="https://dl-cdn.alpinelinux.org/alpine/v3.21/community" \
+        cosign \
     \
     && curl -L -o python.tar.xz "https://www.python.org/ftp/python/${PYTHON_VERSION%%[a-z]*}/Python-$PYTHON_VERSION.tar.xz" \
     && curl -L -o python.tar.xz.sigstore "https://www.python.org/ftp/python/${PYTHON_VERSION%%[a-z]*}/Python-$PYTHON_VERSION.tar.xz.sigstore" \
