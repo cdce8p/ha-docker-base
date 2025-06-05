@@ -21,6 +21,7 @@ RUN set -ex \
         openssl \
         tar \
         xz \
+    && echo "${BUILD_FROM}" \
     && apk add --no-cache --virtual .cosign cosign \
         --repository="https://dl-cdn.alpinelinux.org/alpine/v3.21/community" \
     \
