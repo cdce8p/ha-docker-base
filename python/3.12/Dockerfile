@@ -21,6 +21,7 @@ RUN set -ex \
         openssl \
         tar \
         xz \
+        cat \
     && cat /etc/alpine-release \
     && echo "$(cat alpine-release | tr -d "." | cut -c1-3 -)" \
     &6 echo [[ $(cat /etc/alpine-release | tr -d "." | cut -c1-3 -) > 321 ]] && echo "good" || echo "bad" \
