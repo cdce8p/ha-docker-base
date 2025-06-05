@@ -22,6 +22,7 @@ RUN set -ex \
         tar \
         xz \
     && apk add --no-cache --virtual .cosign \
+        \  # Remove repository once alpine3.20 is dropped
         --repository="https://dl-cdn.alpinelinux.org/alpine/v3.21/community" \
         cosign \
     \
