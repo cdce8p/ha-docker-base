@@ -5,6 +5,7 @@ on:
     branches: ["master"]
   release:
     types: ["published"]
+  workflow_dispatch:
 
 env:
   BUILD_TYPE: base
@@ -68,8 +69,9 @@ jobs:
     name: Alpine ${{ matrix.version }}
     needs: init
     strategy:
+      fail-fast: false
       matrix:
-        version: ["3.20", "3.21", "3.22"]
+        version: ["3.22"]
     uses: ./.github/workflows/reuseable-builder.yml
     with:
       target: alpine
@@ -81,6 +83,7 @@ jobs:
   build_debian:
     name: Debian ${{ matrix.version }}
     needs: init
+    if: false
     strategy:
       fail-fast: false
       matrix:
@@ -97,6 +100,7 @@ jobs:
   build_ubuntu:
     name: Ubuntu ${{ matrix.version }}
     needs: init
+    if: false
     strategy:
       fail-fast: false
       matrix:
@@ -115,8 +119,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        version: ["3.20", "3.21", "3.22"]
-        python: ["3.12", "3.13", "3.14"]
+        version: ["3.22"]
+        python: ["3.13", "3.14"]
     uses: ./.github/workflows/reuseable-builder.yml
     with:
       target: python/${{ matrix.python }}
