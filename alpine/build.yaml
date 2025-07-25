@@ -1,4 +1,4 @@
-image: ghcr.io/home-assistant/{arch}-base
+image: ghcr.io/cdce8p/{arch}-base
 build_from:
   aarch64: "arm64v8/alpine:"
   armv7: "arm32v7/alpine:"
@@ -6,7 +6,7 @@ build_from:
   amd64: "alpine:"
   i386: "i386/alpine:"
 cosign:
-  identity: https://github.com/home-assistant/docker-base/.*
+  identity: https://github.com/cdce8p/ha-docker-base/.*
 args:
   BASHIO_VERSION: 0.17.0
   TEMPIO_VERSION: 2024.11.2
@@ -14,4 +14,4 @@ args:
   JEMALLOC_VERSION: 5.3.0
 labels:
   io.hass.base.name: alpine
-  org.opencontainers.image.source: https://github.com/home-assistant/docker-base
+  org.opencontainers.image.source: https://github.com/cdce8p/ha-docker-base
