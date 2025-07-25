@@ -5,6 +5,7 @@ on:
     branches: ["master"]
   release:
     types: ["published"]
+  workflow_dispatch:
 
 env:
   BUILD_TYPE: base
@@ -69,9 +70,10 @@ jobs:
       id-token: write
       packages: write
     strategy:
+      fail-fast: false
       matrix:
         arch: ${{ fromJson(needs.init.outputs.architectures_alpine) }}
-        version: ["3.19", "3.20", "3.21", "3.22"]
+        version: ["3.22"]
     steps:
       - &checkout
         name: Checkout the repository
@@ -110,6 +112,7 @@ jobs:
     name: Build ${{ matrix.arch }} debian ${{ matrix.version }} base image
     needs: init
     runs-on: *runs-on-ubuntu
+    if: false
     permissions: *permissions
     strategy:
       matrix:
@@ -144,6 +147,7 @@ jobs:
     name: Build ${{ matrix.arch }} ubuntu ${{ matrix.version }} base image
     needs: init
     runs-on: *runs-on-ubuntu
+    if: false
     permissions: *permissions
     strategy:
       matrix:
@@ -177,6 +181,7 @@ jobs:
     name: Build ${{ matrix.arch }} raspbian ${{ matrix.version }} base image
     needs: init
     runs-on: *runs-on-ubuntu
+    if: false
     permissions: *permissions
     strategy:
       matrix:
@@ -216,8 +221,8 @@ jobs:
       fail-fast: false
       matrix:
         arch: ${{ fromJson(needs.init.outputs.architectures_alpine) }}
-        version: ["3.20", "3.21", "3.22"]
-        python: ["3.12", "3.13", "3.14"]
+        version: ["3.22"]
+        python: ["3.13", "3.14"]
         exclude:
           - python: "3.14"
             arch: "armv7"
