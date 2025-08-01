@@ -33,7 +33,7 @@ ARG BUILD_ARCH
 
 RUN \
     set -x \
-    && apt-get update
+    && apt-get -o "Debug::Acquire::https=1" -o "Debug::Acquire::http=1" -o "Debug::Acquire::ftp=1" update
 
 RUN \
     set -x \
