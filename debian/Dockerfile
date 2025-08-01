@@ -32,8 +32,10 @@ WORKDIR /usr/src
 ARG BUILD_ARCH
 
 RUN \
-    set -x \
-    && apt-get -o "Debug::Acquire::https=1" -o "Debug::Acquire::http=1" -o "Debug::Acquire::ftp=1" update
+    sed -i s/deb.debian.org/archive.debian.org/g /etc/apt/sources.list \
+    && sed -i '/stretch-updates/d' /etc/apt/sources.list \
+    && echo "$(cat /etc/apt/sources.list)" \
+    && apt-get update
 
 RUN \
     set -x \
