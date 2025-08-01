@@ -113,6 +113,7 @@ jobs:
       id-token: write
       packages: write
     strategy:
+      fail-fast: false
       matrix:
         arch: ${{ fromJson(needs.init.outputs.architectures_debian) }}
         version: ["bullseye", "bookworm"]
