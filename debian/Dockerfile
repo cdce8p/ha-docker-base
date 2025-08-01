@@ -33,7 +33,11 @@ ARG BUILD_ARCH
 
 RUN \
     set -x \
-    && apt-get update && apt-get install -y --no-install-recommends \
+    && apt-get update
+
+RUN \
+    set -x \
+    && apt-get install -y --no-install-recommends \
         bash \
         jq \
         tzdata \
