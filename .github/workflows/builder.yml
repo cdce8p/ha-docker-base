@@ -5,6 +5,7 @@ on:
     branches: ["master"]
   release:
     types: ["published"]
+  workflow_dispatch:
 
 env:
   BUILD_TYPE: base
@@ -64,6 +65,7 @@ jobs:
     name: Build ${{ matrix.arch }} alpine ${{ matrix.version }} base image
     needs: init
     runs-on: ubuntu-22.04
+    if: false
     permissions:
       contents: read
       id-token: write
@@ -113,8 +115,10 @@ jobs:
       id-token: write
       packages: write
     strategy:
+      fail-fast: false
       matrix:
-        arch: ${{ fromJson(needs.init.outputs.architectures_debian) }}
+        # arch: ${{ fromJson(needs.init.outputs.architectures_debian) }}
+        arch: ["armv7", "armhf", "amd64"]
         version: ["bullseye", "bookworm"]
     steps:
       - name: Checkout the repository
@@ -153,6 +157,7 @@ jobs:
     name: Build ${{ matrix.arch }} ubuntu ${{ matrix.version }} base image
     needs: init
     runs-on: ubuntu-22.04
+    if: false
     permissions:
       contents: read
       id-token: write
@@ -197,6 +202,7 @@ jobs:
     name: Build ${{ matrix.arch }} raspbian ${{ matrix.version }} base image
     needs: init
     runs-on: ubuntu-22.04
+    if: false
     permissions:
       contents: read
       id-token: write
